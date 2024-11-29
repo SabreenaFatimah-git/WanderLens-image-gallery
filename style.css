@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.search {
+    height: 45vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+
+.search .content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.search h1 {
+    font-size: 2.65rem;
+    font-weight: 600;
+    
+}
+
+.search h1 .lens-wrd{
+    color: 	#01c1fd;
+}
+
+.search h1 .wander-wrd {
+    color: white;
+}
+
+.search p {
+    font-size: 1.5rem;
+    margin-top: 8px;
+    color: #fff;
+}
+
+.search p .world-wrd{
+    color: #01c1fd;
+    font-weight: bold;
+}
+
+.search .search-box {
+    height: 55px;
+    margin: 45px 0;
+    position: relative;
+    background: rgba(245, 245, 245, 0.26);
+    border-radius: 5px;
+}
+
+.search-box i {
+    position: absolute;
+    left: 20px;
+    font-size: 1.4rem;
+    color: #8d8d8d;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+input,
+button,
+i {
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+.search-box input {
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    padding-left: 55px;
+    font-size: 1.1rem;
+    color: white;
+}
+
+.search-box input::placeholder{
+    color: #fff;
+}
+.gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gallery .images {
+    gap: 15px;
+    max-width: 95%;
+    margin-top: 40px;
+    columns: 5 340px;
+}
+
+.images .card {
+    overflow: hidden;
+    list-style: none;
+    margin-bottom: 14px;
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+}
+
+.images .card .details {
+    position: absolute;
+    bottom: -100px;
+    width: 100%;
+    padding: 15px 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: bottom 0.1s ease;
+
+}
+
+.images .card:hover .details {
+    bottom: 0;
+}
+
+.photographer {
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.photographer i {
+    font-size: 1.4rem;
+    margin-right: 10px;
+}
+
+.details .photographer span {
+    font-size: 1.05rem;
+
+}
+
+.card .details button {
+    background: #fff;
+    padding: 3px 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.images img {
+    width: 100%;
+}
+
+.gallery .load-more {
+    margin: 50px 0;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 12px 27px;
+    background: linear-gradient(90deg, #8a6cff, #01c1fd); /* Gradient background */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    transition: transform 0.2s, background 0.3s; /* Add hover effects */
+}
+
+.gallery .load-more:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    background: linear-gradient(90deg, #01c1fd, #8a6cff); /* Invert gradient */
+}
+
+.gallery .load-more:active {
+    transform: scale(0.95); /* Button presses in */
+}
+
+.gallery .load-more .disabled{
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+     top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+    
+    
+}
+
+.lightbox.show{
+    display: block!important;
+     opacity: 1;
+}
+
+.lightbox .wrapper {
+    width: 100%;
+    max-width: 850px;
+    position: absolute;
+    padding: 20px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 5px;
+}
+.wrapper header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header .photographer{
+    color: #333;
+}
+
+header .photographer i{
+    font-size: 1.7rem;
+}
+
+header .photographer span{
+    font-size: 1.2rem;
+}
+
+header .buttons i{
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    display: inline-block;
+    background: linear-gradient(90deg, #8a6cff, #01c1fd);
+    transition: transform 0.2s, background 0.3s;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+
+}
+
+header .buttons i:first-child:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    background: linear-gradient(90deg, #01c1fd, #8a6cff);
+}
+
+.buttons i:last-child{
+    margin-left: 10px;
+    background: gray;
+}
+
+.buttons i:last-child:hover{
+    transform: scale(1.05); 
+}
+
+.preview-img{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+
+.wrapper .preview-img img {
+    max-height: 65vh;
+    max-width: 90vw;
+}
+
+.preview-img .img img{
+max-width: 100%;
+height: 100%;
+object-fit: contain;
+}
