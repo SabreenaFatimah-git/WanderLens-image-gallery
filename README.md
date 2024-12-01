@@ -64,6 +64,7 @@ https://api.unsplash.com/search/photos?query={query}&per_page={count}&page={page
 
 ![WanderLens-lighbox](https://github.com/user-attachments/assets/7dde6eb0-9afd-4d3b-824b-218f98c0e5a6)
 
+![Screenshot 2024-12-01 195007](https://github.com/user-attachments/assets/05ab2881-86f7-4756-b3ea-23c87ba9b02d)
 
 ## Future Enhancements
 Add a theme switcher (dark/light mode).
