@@ -24,9 +24,14 @@ const downloadImg = (imgURL, event) => {
 }
 
 
-const showLightbox = (name, img, index, photographerLink) => {
+const showLightbox = (name, img, index, photographerLink, imgLink) => {
     currentImageIndex = index;
-    lightBox.querySelector("img").src = img;
+
+    const imgContainer = lightBox.querySelector(".img");
+    imgContainer.innerHTML = `<a href="${imgLink}" target="_blank"><img src="${img}" alt="img">
+    <span class="tooltip">Unsplash Link</span>
+    </a>`;
+
     lightBox.querySelector("span").innerHTML = `
     <a href="${photographerLink}" target="_blank" class="photographer-link">
         ${name}
@@ -44,13 +49,13 @@ const showLightbox = (name, img, index, photographerLink) => {
 const showNextImage = () => {
     currentImageIndex = (currentImageIndex + 1) % allImages.length;
     const nextImg = allImages[currentImageIndex];
-    showLightbox(nextImg.user.first_name + " " + nextImg.user.last_name, nextImg.urls.full, currentImageIndex);
+    showLightbox(nextImg.user.first_name + " " + nextImg.user.last_name, nextImg.urls.full, currentImageIndex,  nextImg.user.links.html, nextImg.links.html);
 };
 
 const showPrevImage = () => {
     currentImageIndex = (currentImageIndex - 1 + allImages.length) % allImages.length;
     const prevImg = allImages[currentImageIndex];
-    showLightbox(prevImg.user.first_name + " " + prevImg.user.last_name, prevImg.urls.full, currentImageIndex);
+    showLightbox(prevImg.user.first_name + " " + prevImg.user.last_name, prevImg.urls.full, currentImageIndex, prevImg.user.links.html, prevImg.links.html);
 };
 
 const hideLightbox = () =>{
@@ -59,9 +64,9 @@ const hideLightbox = () =>{
 }
 
 const generateHTML = (images) => {
-    allImages = allImages.concat(images);
-    imagesWrapper.innerHTML += images.map((img, index ) =>
-        `<li class="card" onclick="showLightbox('${img.user.first_name} ${img.user.last_name}', '${img.urls.full}', ${index}, '${img.user.links.html}')">
+    allImages = images;
+    imagesWrapper.innerHTML = images.map((img, index ) =>
+        `<li class="card" onclick="showLightbox('${img.user.first_name} ${img.user.last_name}', '${img.urls.full}', ${index}, '${img.user.links.html}', '${img.links.html}')">
                       <img src="${img.urls.full}" alt="img">
                       <div class="details">
                           <div class="photographer">
@@ -80,7 +85,7 @@ const getImages = (apiURL) => {
     loadMoreBtn.classList.add("disabled")
     fetch(apiURL).then(res => res.json()).then(data => {
         generateHTML(data.results);
-        console.log(data);
+        // console.log(data);
         loadMoreBtn.innerText = "Load More";
         loadMoreBtn.classList.remove("disabled")
     }).catch(() => alert("Failed to load Images!"))
