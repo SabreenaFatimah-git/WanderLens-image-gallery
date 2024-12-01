@@ -5,9 +5,11 @@ const lightBox = document.querySelector(".lightbox");
 const closeBtn = lightBox.querySelector(".uil-times");
 const downloadImgBtn = lightBox.querySelector(".uil-import");
 let searchTerm = null;
+let currentImageIndex = 0;
+let allImages = [];
 
 
-let apiKey = "HPHmofuXdkCfQ0n8Kw7XlA5W3ocUeYq8AwQsk14o9Mw";
+let apiKey = "YOUR API KEY";
 const perPage = 15;
 let currentPage = 1;
 
@@ -22,15 +24,27 @@ const downloadImg = (imgURL) => {
 }
 
 
-const showLightbox = (name, img) => {
+const showLightbox = (name, img, index) => {
     // showing lightbox & img source , name
+    currentImageIndex = index;
     lightBox.querySelector("img").src = img;
     lightBox.querySelector("span").innerText = name;
     downloadImgBtn.setAttribute("data-img", img);
     lightBox.classList.add("show");
     document.body.style.overflow ="hidden";
-    console.log("hiiiiii")
 }
+
+const showNextImage = () => {
+    currentImageIndex = (currentImageIndex + 1) % allImages.length;
+    const nextImg = allImages[currentImageIndex];
+    showLightbox(nextImg.user.first_name + " " + nextImg.user.last_name, nextImg.urls.full, currentImageIndex);
+};
+
+const showPrevImage = () => {
+    currentImageIndex = (currentImageIndex - 1 + allImages.length) % allImages.length;
+    const prevImg = allImages[currentImageIndex];
+    showLightbox(prevImg.user.first_name + " " + prevImg.user.last_name, prevImg.urls.full, currentImageIndex);
+};
 
 const hideLightbox = () =>{
     lightBox.classList.remove("show");
@@ -38,8 +52,9 @@ const hideLightbox = () =>{
 }
 
 const generateHTML = (images) => {
-    imagesWrapper.innerHTML += images.map(img =>
-        `<li class="card" onclick="showLightbox('${img.user.first_name} ${img.user.last_name}', '${img.urls.full}')">
+    allImages = allImages.concat(images);
+    imagesWrapper.innerHTML += images.map((img, index ) =>
+        `<li class="card" onclick="showLightbox('${img.user.first_name} ${img.user.last_name}', '${img.urls.full}', '${allImages.length - images.length + index}')">
                       <img src="${img.urls.full}" alt="img">
                       <div class="details">
                           <div class="photographer">
@@ -88,3 +103,5 @@ loadMoreBtn.addEventListener("click", loadMoreImages);
 searchInput.addEventListener("keyup", loadSearchImages);
 closeBtn.addEventListener("click", hideLightbox);
 downloadImgBtn.addEventListener("click", (e) => downloadImg(e.target.dataset.img));
+document.querySelector(".prev").addEventListener("click", showPrevImage);
+document.querySelector(".next").addEventListener("click", showNextImage);

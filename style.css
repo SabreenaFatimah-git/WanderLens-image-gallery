@@ -278,3 +278,31 @@ max-width: 100%;
 height: 100%;
 object-fit: contain;
 }
+
+.navigation {
+    position: absolute;
+    top: 50%;
+    width: calc(100% - 41.5%); /* Adjust for padding or margins */
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    transform: translateX(35.2%);
+    z-index: 1000;
+    padding: 0 20px;
+}
+
+.navigation .prev, .navigation .next {
+    color: black; 
+    font-size: 36px; 
+    cursor: pointer;
+    pointer-events: auto; 
+    border: none;
+    background: none; 
+    outline: none;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+
+.navigation .prev:hover, .navigation .next:hover {
+    transform: scale(1.2); 
+}
