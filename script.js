@@ -13,8 +13,8 @@ let apiKey = "YOUR API KEY";
 const perPage = 15;
 let currentPage = 1;
 
-const downloadImg = (imgURL) => {
-    // converting recived img to blob & creating its doenload link & downloading it.
+const downloadImg = (imgURL, event) => {
+    event.stopPropagation();
     fetch(imgURL).then(res => res.blob()).then(file => {
         const a = document.createElement("a");
         a.href = URL.createObjectURL(file);
@@ -24,11 +24,18 @@ const downloadImg = (imgURL) => {
 }
 
 
-const showLightbox = (name, img, index) => {
-    // showing lightbox & img source , name
+const showLightbox = (name, img, index, photographerLink) => {
     currentImageIndex = index;
     lightBox.querySelector("img").src = img;
-    lightBox.querySelector("span").innerText = name;
+    lightBox.querySelector("span").innerHTML = `
+    <a href="${photographerLink}" target="_blank" class="photographer-link">
+        ${name}
+    </a> on 
+    <a href="https://unsplash.com" target="_blank" class="unsplash-link">
+        Unsplash
+    </a>
+`;
+
     downloadImgBtn.setAttribute("data-img", img);
     lightBox.classList.add("show");
     document.body.style.overflow ="hidden";
@@ -54,14 +61,14 @@ const hideLightbox = () =>{
 const generateHTML = (images) => {
     allImages = allImages.concat(images);
     imagesWrapper.innerHTML += images.map((img, index ) =>
-        `<li class="card" onclick="showLightbox('${img.user.first_name} ${img.user.last_name}', '${img.urls.full}', '${allImages.length - images.length + index}')">
+        `<li class="card" onclick="showLightbox('${img.user.first_name} ${img.user.last_name}', '${img.urls.full}', ${index}, '${img.user.links.html}')">
                       <img src="${img.urls.full}" alt="img">
                       <div class="details">
                           <div class="photographer">
                               <i class="uil uil-camera"></i>
                           <span>${img.user.first_name} ${img.user.last_name}</span>
                       </div>
-                      <button onclick="downloadImg('${img.urls.full}');event.stopPropagation();">
+                      <button onclick="downloadImg('${img.urls.full}', event);">
                       <i class="uil uil-import"></i>
                       </button>
                   </div>
@@ -93,7 +100,7 @@ const loadSearchImages = (e) => {
         currentPage = 1;
         searchTerm = e.target.value;
         imagesWrapper.innerHTML = "";
-        getImages(`https://api.unsplash.com/search/photos?query=${searchTerm}&per_Page=${perPage}&P=${currentPage}&client_id=${apiKey}`);
+        getImages(`https://api.unsplash.com/search/photos?query=${searchTerm}&per_Page=${perPage}&page=${currentPage}&client_id=${apiKey}`);
     }
 }
 

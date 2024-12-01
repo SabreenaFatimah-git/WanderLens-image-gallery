@@ -282,7 +282,7 @@ object-fit: contain;
 .navigation {
     position: absolute;
     top: 50%;
-    width: calc(100% - 41.5%); /* Adjust for padding or margins */
+    width: calc(100% - 41.5%);
     display: flex;
     justify-content: space-between;
     transform: translateY(-50%);
@@ -305,4 +305,18 @@ object-fit: contain;
 
 .navigation .prev:hover, .navigation .next:hover {
     transform: scale(1.2); 
+}
+.lightbox span a.photographer-link, 
+.lightbox span a.unsplash-link {
+    text-decoration: none;
+    color: inherit; 
+    transition: transform 0.3s ease, text-decoration 0.2s ease, color 0.3s ease; 
+}
+
+.lightbox span a.photographer-link:hover, 
+.lightbox span a.unsplash-link:hover {
+    text-decoration: underline;
+    transform: scale(1.1);
+    cursor: pointer;
+    color: #01c1fd; 
 }
