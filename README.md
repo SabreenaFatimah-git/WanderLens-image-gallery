@@ -38,7 +38,7 @@ Use Live Server in VS Code or open index.html directly.
 ## How It Works??
 
 Load Images:
-By default, the app fetches "lifestyle" images from Unsplash.
+By default, the app fetches "curated" images from Unsplash.
 
 Search Images:
 Enter a keyword and press Enter to search.
