@@ -41,7 +41,7 @@ const showLightbox = (name, img, index, photographerLink, imgLink) => {
     </a>
 `;
 
-    downloadImgBtn.setAttribute("data-img", img);
+    downloadImgBtn.onclick = (e) => downloadImg(img, e);
     lightBox.classList.add("show");
     document.body.style.overflow ="hidden";
 }
@@ -114,6 +114,5 @@ getImages(`https://api.unsplash.com/search/photos?query=lifestyle&per_page=${per
 loadMoreBtn.addEventListener("click", loadMoreImages);
 searchInput.addEventListener("keyup", loadSearchImages);
 closeBtn.addEventListener("click", hideLightbox);
-downloadImgBtn.addEventListener("click", (e) => downloadImg(e.target.dataset.img));
 document.querySelector(".prev").addEventListener("click", showPrevImage);
 document.querySelector(".next").addEventListener("click", showNextImage);
